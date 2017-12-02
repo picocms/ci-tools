@@ -7,11 +7,7 @@
 #
 
 parse_version() {
-    VERSION_FULL="$1"
-
-    if [ "${VERSION_FULL:0:1}" == "v" ]; then
-        VERSION_FULL="${VERSION_FULL:1}"
-    fi
+    VERSION_FULL="${1#v}"
 
     if [[ "$VERSION_FULL" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-([0-9A-Za-z\.\-]+))?(\+([0-9A-Za-z\.\-]+))?$ ]]; then
         VERSION_MAJOR="${BASH_REMATCH[1]}"

@@ -32,7 +32,7 @@ if [ -z "$(git log --oneline '@{upstream}..')" ]; then
     exit 0
 fi
 
-# race condition protection for concurrent Travis builds
+# race condition protection for concurrent deployments
 # this is no definite protection (race conditions are still possible during `git push`),
 # but it should give a basic protection without disabling concurrent builds completely
 if [ -n "$CHECK_REPO_SLUG" ] && [ -n "$CHECK_REMOTE_REF" ] && [ -n "$CHECK_LOCAL_COMMIT" ]; then

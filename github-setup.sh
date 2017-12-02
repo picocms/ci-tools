@@ -26,8 +26,8 @@ fi
 # setup git
 printf 'Preparing repo...\n'
 git config push.default simple
-git config user.name "Travis CI"
-git config user.email "travis-ci@picocms.org"
+git config user.name "Pico CI"
+git config user.email "build@picocms.org"
 
 if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
     git config credential.helper 'store --file=.git/credentials'
