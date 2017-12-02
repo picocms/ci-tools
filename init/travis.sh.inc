@@ -22,12 +22,17 @@ __picocms_cmd export PICO_DEPLOYMENT="${TRAVIS_BRANCH//\//_}"
 __picocms_cmd export PROJECT_REPO_SLUG="$TRAVIS_REPO_SLUG"
 __picocms_cmd export PROJECT_REPO_COMMIT="$TRAVIS_COMMIT"
 
-if [ -z "$TRAVIS_TAG" ]; then
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     __picocms_cmd export PROJECT_REPO_BRANCH="$TRAVIS_BRANCH"
-    __picocms_cmd export PROJECT_REPO_TAG=""
-else
-    __picocms_cmd export PROJECT_REPO_BRANCH=""
+
+    __picocms_cmd export PROJECT_REPO_PR="$TRAVIS_PULL_REQUEST"
+    __picocms_cmd export PROJECT_REPO_PR_SLUG="$TRAVIS_PULL_REQUEST_SLUG"
+    __picocms_cmd export PROJECT_REPO_PR_COMMIT="$TRAVIS_PULL_REQUEST_SHA"
+    __picocms_cmd export PROJECT_REPO_PR_BRANCH="$TRAVIS_PULL_REQUEST_BRANCH"
+elif [ -n "$TRAVIS_TAG" ]; then
     __picocms_cmd export PROJECT_REPO_TAG="$TRAVIS_TAG"
+else
+    __picocms_cmd export PROJECT_REPO_BRANCH="$TRAVIS_BRANCH"
 fi
 
 [ -n "$RELEASE_REPO_SLUG" ] || __picocms_cmd export RELEASE_REPO_SLUG="$TRAVIS_REPO_SLUG"
