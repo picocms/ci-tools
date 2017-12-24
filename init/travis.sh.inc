@@ -2,6 +2,10 @@ if [ "$TRAVIS" != "true" ]; then
     echo "Invalid environment: I'm expecting Travis CI here..." >&2
     exit 1
 fi
+if [ -z "$PICO_TOOLS_DIR" ]; then
+    echo "Invalid environment: Required environment variable 'PICO_TOOLS_DIR' not set" >&2
+    exit 1
+fi
 
 function __picocms_cmd {
     echo "\$" "$@"
