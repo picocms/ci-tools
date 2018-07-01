@@ -11,10 +11,12 @@
 set -e
 
 # parameters
-TARGET_FILE="$1"     # statistics target file path
+SOURCE_DIR="$1"     # source directory path
+TARGET_FILE="$2"    # statistics target file path
 
 # print parameters
 echo "Updating cloc statistics..."
+printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
 printf 'TARGET_FILE="%s"\n' "$TARGET_FILE"
 echo
 
@@ -77,7 +79,8 @@ echo
 # create statistics
 printf 'Creating statistics...\n'
 create_cloc_stats "$TMP_FILE" \
-    lib index.php
+    "$SOURCE_DIR/lib" \
+    "$SOURCE_DIR/index.php"
 echo
 
 # remove headers from cloc statistics
