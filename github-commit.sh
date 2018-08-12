@@ -33,8 +33,8 @@ while [ $# -gt 0 ]; do
         fi
 
         COMMIT_FILES+=( "$1" )
-        shift
     fi
+    shift
 done
 
 # commit changes
