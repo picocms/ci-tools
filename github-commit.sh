@@ -40,6 +40,8 @@ done
 # commit changes
 if [ ${#COMMIT_FILES[@]} -gt 0 ]; then
     git commit --message="$COMMIT_MESSAGE" "${COMMIT_FILES[@]}"
+else
+    echo "No changes to commit"
 fi
 
 echo
