@@ -40,9 +40,3 @@ elif [ -n "$TRAVIS_TAG" ]; then
 else
     __picocms_cmd export PROJECT_REPO_BRANCH="$TRAVIS_BRANCH"
 fi
-
-[ -n "$RELEASE_REPO_SLUG" ] || __picocms_cmd export RELEASE_REPO_SLUG="$TRAVIS_REPO_SLUG"
-[ -n "$RELEASE_REPO_BRANCH" ] || __picocms_cmd export RELEASE_REPO_BRANCH="master"
-
-[ -n "$DEPLOY_REPO_SLUG" ] || __picocms_cmd export DEPLOY_REPO_SLUG="$TRAVIS_REPO_SLUG"
-[ -n "$DEPLOY_REPO_BRANCH" ] || __picocms_cmd export DEPLOY_REPO_BRANCH="gh-pages"

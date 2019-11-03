@@ -28,14 +28,3 @@ else
     unset PROJECT_REPO_BRANCH
 fi
 
-__picocms_cmd export RELEASE_REPO_SLUG="${RELEASE_REPO_SLUG:-picocms/pico-composer}"
-__picocms_cmd export RELEASE_REPO_BRANCH="${RELEASE_REPO_BRANCH:-master}"
-
-if [ "$PROJECT_REPO_SLUG" != "picocms/Pico" ]; then
-    __picocms_cmd export DEPLOY_REPO_SLUG="${DEPLOY_REPO_SLUG:-$PROJECT_REPO_SLUG}"
-    __picocms_cmd export DEPLOY_REPO_BRANCH="${DEPLOY_REPO_BRANCH:-gh-pages}"
-else
-    __picocms_cmd export DEPLOY_REPO_SLUG="${DEPLOY_REPO_SLUG:-picocms.github.io}"
-    __picocms_cmd export DEPLOY_REPO_BRANCH="${DEPLOY_REPO_BRANCH:-master}"
-fi
-
