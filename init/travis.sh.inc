@@ -17,6 +17,8 @@ function __picocms_cmd {
 export PATH="$PICO_TOOLS_DIR:$PATH"
 
 # set environment variables
+__picocms_cmd export PICO_BUILD_ENV="travis"
+
 __picocms_cmd export PICO_PROJECT_DIR="$TRAVIS_BUILD_DIR"
 __picocms_cmd export PICO_BUILD_DIR="$HOME/__picocms_build"
 __picocms_cmd export PICO_DEPLOY_DIR="$HOME/__picocms_deploy"
