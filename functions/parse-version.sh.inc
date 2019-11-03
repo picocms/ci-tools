@@ -34,6 +34,7 @@ parse_version() {
         VERSION_MILESTONE="$VERSION_MAJOR.$VERSION_MINOR"
         VERSION_NAME="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
         VERSION_ID="$VERSION_MAJOR$(printf '%02d' "$VERSION_MINOR")$(printf '%02d' "$VERSION_PATCH")"
+        VERSION_ID="$(printf '%01d' "$(echo "$VERSION_ID" | sed 's/^0*//')")"
 
         return 0
     else
