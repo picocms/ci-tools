@@ -17,9 +17,11 @@ parse_version() {
         VERSION_BUILD="${BASH_REMATCH[7]}"
 
         VERSION_STABILITY="stable"
-        if [[ "$VERSION_SUFFIX" =~ ^(dev|a|alpha|b|beta|rc)?([.-]?[0-9]+)?([.-](dev))?$ ]]; then
+        if [[ "$VERSION_SUFFIX" =~ ^(dev|n|nightly|a|alpha|b|beta|rc)?([.-]?[0-9]+)?([.-](dev))?$ ]]; then
             if [ "${BASH_REMATCH[1]}" == "dev" ] || [ "${BASH_REMATCH[4]}" == "dev" ]; then
                 VERSION_STABILITY="dev"
+            elif [ "${BASH_REMATCH[1]}" == "n" ] || [ "${BASH_REMATCH[1]}" == "nightly" ]; then
+                VERSION_STABILITY="nightly"
             elif [ "${BASH_REMATCH[1]}" == "a" ] || [ "${BASH_REMATCH[1]}" == "alpha" ]; then
                 VERSION_STABILITY="alpha"
             elif [ "${BASH_REMATCH[1]}" == "b" ] || [ "${BASH_REMATCH[1]}" == "beta" ]; then
