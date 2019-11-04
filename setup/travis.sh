@@ -8,7 +8,7 @@ echo
 while [ $# -gt 0 ]; do
     if [ "$1" == "--cloc" ]; then
         echo "Synchronizing package index files..."
-        sudo apt-get update
+        sudo apt-get update || true
         echo
     fi
 
