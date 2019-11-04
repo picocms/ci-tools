@@ -22,7 +22,7 @@ printf 'ARCHIVE_DIR="%s"\n' "$ARCHIVE_DIR"
 printf 'ARCHIVE_FILENAME="%s"\n' "$ARCHIVE_FILENAME"
 echo
 
-if [ -z "$ARCHIVE_DIR" ] || [ "$(realpath "$ARCHIVE_DIR")" == "$(realpath "$BUILD_DIR")" ]; then
+if [ -z "$ARCHIVE_DIR" ] || [ "$(readlink -e "$ARCHIVE_DIR")" == "$(readlink -e "$BUILD_DIR")" ]; then
     echo "Unable to create release archives: Invalid release archive target dir '$ARCHIVE_DIR'" >&2
     exit 1
 fi

@@ -5,13 +5,13 @@ function __picocms_cmd {
 }
 
 # guess PICO_TOOLS_DIR path and add it to $PATH
-__picocms_cmd export PICO_TOOLS_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")/..")"
+__picocms_cmd export PICO_TOOLS_DIR="$(readlink -e "$(dirname "${BASH_SOURCE[0]}")/..")"
 export PATH="$PICO_TOOLS_DIR:$PATH"
 
 # set environment variables
 __picocms_cmd export PICO_BUILD_ENV="local"
 
-__picocms_cmd export PICO_PROJECT_DIR="$(realpath "$PWD")"
+__picocms_cmd export PICO_PROJECT_DIR="$(readlink -e "$PWD")"
 __picocms_cmd export PICO_BUILD_DIR="$PICO_PROJECT_DIR/.build/build"
 __picocms_cmd export PICO_DEPLOY_DIR="$PICO_PROJECT_DIR/.build/deploy"
 
