@@ -6,16 +6,12 @@ echo "Installing build dependencies..."
 echo
 
 while [ $# -gt 0 ]; do
-    if [ "$1" == "--cloc" ]; then
-        echo "Synchronizing package index files..."
-        sudo apt-get update || true
-        echo
-    fi
-
     case "$1" in
         "--cloc")
             echo "Installing cloc..."
-            sudo apt-get install -y cloc
+            curl --location --output "$PICO_TOOLS_DIR/cloc" \
+                "https://github.com/AlDanial/cloc/releases/latest/download/cloc-1.84.pl"
+            chmod +x "$PICO_TOOLS_DIR/cloc"
             ;;
 
         "--phpdoc")
