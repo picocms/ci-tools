@@ -10,7 +10,7 @@ while [ $# -gt 0 ]; do
         "--cloc")
             echo "Installing cloc..."
             curl --location --output "$PICO_TOOLS_DIR/cloc" \
-                "https://github.com/AlDanial/cloc/releases/latest/download/cloc-1.84.pl"
+                "https://github.com/AlDanial/cloc/releases/download/1.84/cloc-1.84.pl"
             chmod +x "$PICO_TOOLS_DIR/cloc"
             ;;
 
@@ -23,18 +23,13 @@ while [ $# -gt 0 ]; do
 
         "--phpcs")
             echo "Installing PHP_CodeSniffer..."
-            if [ "$(php -r 'echo PHP_VERSION_ID;')" -ge 50400 ]; then
-                PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/"
-            else
-                PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.9.2/"
-            fi
 
             curl --location --output "$PICO_TOOLS_DIR/phpcs" \
-                "$PHPCS_DOWNLOAD/phpcs.phar"
+                "https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar"
             chmod +x "$PICO_TOOLS_DIR/phpcs"
 
             curl --location --output "$PICO_TOOLS_DIR/phpcbf" \
-                "$PHPCS_DOWNLOAD/phpcbf.phar"
+                "https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcbf.phar"
             chmod +x "$PICO_TOOLS_DIR/phpcbf"
             ;;
 
