@@ -24,24 +24,7 @@ printf 'PHPDOC_TARGET_DIR="%s"\n' "$PHPDOC_TARGET_DIR"
 printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
 echo
 
-# update a separate phpDoc cache
-if [ "$PHPDOC_CACHE_DIR" != "-" ]; then
-    # parse phpDoc files (i.e. update cache)
-    printf "Update phpDoc cache...\n"
-    phpdoc project:parse --config "$PHPDOC_CONFIG" \
-        --target "$PHPDOC_CACHE_DIR"
-
-    # check for changes
-    printf '\nCheck for phpDoc cache changes...\n'
-    if [ -z "$(git status --porcelain "$PHPDOC_CACHE_DIR")" ]; then
-        printf 'No changes detected; skipping phpDocs renewal...\n\n'
-        exit 0
-    fi
-
-    # NOTE: actually the following command should be `phpdoc project:transform`
-    #       instead of `phpdoc project:run`, but the command seems to be broken...
-    echo
-else
+if [ "$PHPDOC_CACHE_DIR" == "-" ]; then
     # create temporary cache files in PHPDOC_TARGET_DIR
     PHPDOC_CACHE_DIR="$PHPDOC_TARGET_DIR"
 fi
@@ -49,9 +32,18 @@ fi
 # transform phpDoc files (i.e. rewrite API docs)
 printf 'Rewrite phpDocs...\n'
 rm -rf "$PHPDOC_TARGET_DIR"
-phpdoc project:run --config "$PHPDOC_CONFIG" \
+phpdoc run --config "$PHPDOC_CONFIG" \
     --cache-folder "$PHPDOC_CACHE_DIR" \
     --target "$PHPDOC_TARGET_DIR" \
     --title "$PHPDOC_TITLE"
+
+# check for changes
+if [ "$PHPDOC_CACHE_DIR" != "$PHPDOC_TARGET_DIR" ]; then
+    printf '\nCheck for phpDoc cache changes...\n'
+    if [ -z "$(git status --porcelain "$PHPDOC_CACHE_DIR")" ]; then
+        printf 'No changes detected; skipping phpDocs renewal...\n\n'
+        exit 0
+    fi
+fi
 
 echo
