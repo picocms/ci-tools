@@ -24,12 +24,18 @@ while [ $# -gt 0 ]; do
         "--phpcs")
             echo "Installing PHP_CodeSniffer..."
 
+            if [ "$(php -r 'echo PHP_VERSION_ID;')" -ge 50400 ]; then
+                PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/"
+            else
+                PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.9.2/"
+            fi
+
             curl --location --output "$PICO_TOOLS_DIR/phpcs" \
-                "https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar"
+                "$PHPCS_DOWNLOAD/phpcs.phar"
             chmod +x "$PICO_TOOLS_DIR/phpcs"
 
             curl --location --output "$PICO_TOOLS_DIR/phpcbf" \
-                "https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcbf.phar"
+                "$PHPCS_DOWNLOAD/phpcbf.phar"
             chmod +x "$PICO_TOOLS_DIR/phpcbf"
             ;;
 
