@@ -24,7 +24,7 @@ while [ $# -gt 0 ]; do
         "--phpdoc3")
             echo "Installing phpDocumentor..."
             curl --location --output "$PICO_TOOLS_DIR/phpdoc" \
-                "https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar"
+                "https://github.com/phpDocumentor/phpDocumentor/releases/latest/download/phpDocumentor.phar"
             chmod +x "$PICO_TOOLS_DIR/phpdoc"
             ;;
 
