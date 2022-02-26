@@ -17,13 +17,13 @@ set -eu -o pipefail
 export LC_ALL=C
 
 # parameters
-TARGET_FILE="$1"  # statistics target file path
-SOURCE_DIR="$2"   # source directory path
+TARGET_FILE="$1"           # statistics target file path
+SOURCE_PATHS=( "${@:2}" )  # source paths
 
 # print parameters
 echo "Updating cloc statistics..."
 printf 'TARGET_FILE="%s"\n' "$TARGET_FILE"
-printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
+printf 'SOURCE_PATHS=( %s )\n' "${SOURCE_PATHS[@]@Q}"
 echo
 
 # define functions
@@ -83,9 +83,7 @@ echo
 
 # create statistics
 echo "Creating statistics..."
-create_cloc_stats "$TMP_FILE" \
-    "$SOURCE_DIR/lib" \
-    "$SOURCE_DIR/index.php"
+create_cloc_stats "$TMP_FILE" "${SOURCE_PATHS[@]}"
 echo
 
 # remove headers from cloc statistics
