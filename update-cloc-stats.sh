@@ -1,27 +1,33 @@
-#!/usr/bin/env bash
-
-##
-# Updates the cloc statistics files
+#!/bin/bash
+# ci-tools -- update-cloc-stats.sh
+# Updates the cloc statistics file.
 #
-# @author  Daniel Rudolf
-# @link    http://picocms.org
-# @license http://opensource.org/licenses/MIT
+# This file is part of Pico, a stupidly simple, blazing fast, flat file CMS.
+# Visit us at https://picocms.org/ for more info.
 #
+# Copyright (c) 2017  Daniel Rudolf <https://www.daniel-rudolf.de>
+#
+# This work is licensed under the terms of the MIT license.
+# For a copy, see LICENSE file or <https://opensource.org/licenses/MIT>.
+#
+# SPDX-License-Identifier: MIT
+# License-Filename: LICENSE
 
-set -e
+set -eu -o pipefail
+export LC_ALL=C
 
 # parameters
-SOURCE_DIR="$1"     # source directory path
-TARGET_FILE="$2"    # statistics target file path
+TARGET_FILE="$1"  # statistics target file path
+SOURCE_DIR="$2"   # source directory path
 
 # print parameters
 echo "Updating cloc statistics..."
-printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
 printf 'TARGET_FILE="%s"\n' "$TARGET_FILE"
+printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
 echo
 
-# create cloc statistics
-create_cloc_stats() {
+# define functions
+function create_cloc_stats {
     local CLOC_FILE="$1"
     shift
 
@@ -51,8 +57,7 @@ create_cloc_stats() {
         "$@"
 }
 
-# remove header from cloc statistics
-clean_cloc_stats() {
+function clean_cloc_stats {
     local LINE=""
     local IS_HEADER="no"
     while IFS='' read -r LINE || [[ -n "$LINE" ]]; do
@@ -71,24 +76,23 @@ clean_cloc_stats() {
 }
 
 # create temporary file
-printf 'Creating temporary file...\n'
+echo "Creating temporary file..."
 TMP_FILE="$(mktemp)"
 [ -n "$TMP_FILE" ] || exit 1
 echo
 
 # create statistics
-printf 'Creating statistics...\n'
+echo "Creating statistics..."
 create_cloc_stats "$TMP_FILE" \
     "$SOURCE_DIR/lib" \
     "$SOURCE_DIR/index.php"
 echo
 
 # remove headers from cloc statistics
-printf 'Writing statistics file without header...\n'
+echo "Writing statistics file without header..."
 clean_cloc_stats "$TMP_FILE" > "$TARGET_FILE"
 echo
 
 # remove temporary file
-printf 'Removing temporary file...\n'
+echo "Removing temporary file..."
 rm "$TMP_FILE"
-echo
