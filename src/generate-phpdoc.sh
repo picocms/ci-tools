@@ -30,20 +30,10 @@ printf 'PHPDOC_CACHE_DIR="%s"\n' "$PHPDOC_CACHE_DIR"
 printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
 echo
 
-# update phpDoc class docs (i.e. rewrite API docs)
+# update phpDoc class docs
 echo "Update phpDoc class docs..."
 rm -rf "$PHPDOC_TARGET_DIR"
 phpdoc run --config "$PHPDOC_CONFIG" \
     --target "$PHPDOC_TARGET_DIR" \
     --cache-folder "$PHPDOC_CACHE_DIR" \
     --title "$PHPDOC_TITLE"
-
-# check for changes
-if [ "$PHPDOC_CACHE_DIR" != "$PHPDOC_TARGET_DIR" ]; then
-    echo
-    echo "Check for phpDoc cache changes..."
-
-    if [ -z "$(git status --porcelain "$PHPDOC_CACHE_DIR")" ]; then
-        echo "No changes detected; skipping phpDoc class docs renewal..."
-    fi
-fi
