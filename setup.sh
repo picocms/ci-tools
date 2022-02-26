@@ -25,5 +25,5 @@ COMMIT_SHA="$(git -C "$GIT_DIR" show -s --format=%h HEAD)"
 COMMIT_DATE="$(git -C "$GIT_DIR" show -s --format=%ci HEAD)"
 echo "Using CI tools as of commit $COMMIT_SHA from $COMMIT_DATE"
 
-echo "Setting 'CI_TOOLS_PATH' environment variable: $GIT_DIR"
-export CI_TOOLS_PATH="$GIT_DIR"
+echo "Setting 'CI_TOOLS_PATH' environment variable: $GIT_DIR/src"
+export CI_TOOLS_PATH="$GIT_DIR/src"
