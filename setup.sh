@@ -17,9 +17,11 @@ CI_TOOLS_REPO="https://github.com/picocms/ci-tools.git"
 
 GIT_DIR="$1"
 [ -n "$GIT_DIR" ] || GIT_DIR="$(mktemp -d)"
+[ -n "$GIT_DIR" ] || exit 1
 
 echo "Cloning 'ci-tools' repository from '$CI_TOOLS_REPO'..."
-git clone --depth=1 "$CI_TOOLS_REPO" "$GIT_DIR"
+git clone --depth=1 "$CI_TOOLS_REPO" "$GIT_DIR" \
+    || exit $?
 
 COMMIT_SHA="$(git -C "$GIT_DIR" show -s --format=%h HEAD)"
 COMMIT_DATE="$(git -C "$GIT_DIR" show -s --format=%ci HEAD)"
