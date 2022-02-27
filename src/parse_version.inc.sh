@@ -14,7 +14,7 @@
 # License-Filename: LICENSE
 
 function parse_version {
-    VERSION_FULL="${VERSION#v}"
+    VERSION_FULL="${1#v}"
 
     if ! [[ "$VERSION_FULL" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-([0-9A-Za-z\.\-]+))?(\+([0-9A-Za-z\.\-]+))?$ ]]; then
         return 1
