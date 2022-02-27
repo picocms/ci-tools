@@ -30,6 +30,11 @@ printf 'PHPDOC_CACHE_DIR="%s"\n' "$PHPDOC_CACHE_DIR"
 printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
 echo
 
+# phpDocumentor bug workaround
+# FIXME: https://github.com/phpDocumentor/phpDocumentor/issues/3158
+PHPDOC_TARGET_DIR="$(realpath "$PHPDOC_TARGET_DIR")"
+PHPDOC_CACHE_DIR="$(realpath "$PHPDOC_CACHE_DIR")"
+
 # update phpDoc class docs
 echo "Update phpDoc class docs..."
 rm -rf "$PHPDOC_TARGET_DIR"
